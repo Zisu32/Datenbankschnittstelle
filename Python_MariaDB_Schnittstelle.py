@@ -1,5 +1,4 @@
 #!/usr/bin/python 
-#import mariadb
 import mysql.connector as mariadb 
 import sys
 
@@ -20,8 +19,7 @@ cur = conn.cursor()
 #Retrieving Information 
 print("Wählen Sie aus deutsch, englisch, französisch, spanisch oder griechisch")
 language_wish = input()
-cur.execute("SELECT Titel, Sprache FROM Buch WHERE Sprache=?", (language_wish,)) 
-
+cur.execute("SELECT Sprache, Titel FROM Buch WHERE Sprache=?", (language_wish,)) 
 
 for Titel, Sprache in cur: 
     print(f"Titel: {Titel}, Sprache: {Sprache}")
@@ -34,5 +32,5 @@ for Titel, Sprache in cur:
 
 #conn.commit() 
 #print(f"Last Inserted ID: {cur.lastrowid}")
-    
+
 conn.close()
