@@ -1,6 +1,6 @@
 #!/usr/bin/python 
-import mariadb
-#import mysql.connector as mariadb 
+#import mariadb
+import mysql.connector as mariadb 
 import sys
 
 #Connect to MariaDB Platform
