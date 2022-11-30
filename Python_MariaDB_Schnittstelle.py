@@ -1,27 +1,37 @@
 #!/usr/bin/python 
-import mariadb 
+import mariadb
+#import mysql.connector as mariadb 
+import sys
 
-conn = mariadb.connect(
-    user="db_user",
-    password="db_user_passwd",
-    host="localhost",
-    database="employees")
+#Connect to MariaDB Platform
+try:
+    conn = mariadb.connect(
+        user="PythonUser",
+        password="",
+        host="localhost",
+        database="BuchDB")
+except mariadb.Error as e:
+    print(f"Verbindungsfehler: {e}")
+    sys.exit(1)
+
+#Get Cursor
 cur = conn.cursor() 
 
-#retrieving information 
-some_name = "Georgi" 
-cur.execute("SELECT first_name,last_name FROM employees WHERE first_name=?", (some_name,)) 
+#Retrieving Information 
+print("Wählen Sie aus deutsch, englisch, französisch, spanisch oder griechisch")
+language_wish = int(input())
+cur.execute("SELECT Titel, Sprache FROM Buch WHERE Sprache=?", (language_wish,)) 
 
-for first_name, last_name in cur: 
-    print(f"First name: {first_name}, Last name: {last_name}")
+for Titel, Sprache in cur: 
+    print(f"Titel: {Titel}, Sprache: {Sprache}")
     
 #insert information 
-try: 
-    cur.execute("INSERT INTO employees (first_name,last_name) VALUES (?, ?)", ("Maria","DB")) 
-except mariadb.Error as e: 
-    print(f"Error: {e}")
+#try: 
+#    cur.execute("INSERT INTO employees (first_name,last_name) VALUES (?, ?)", ("Maria","DB")) 
+#except mariadb.Error as e: 
+#    print(f"Error: {e}")
 
-conn.commit() 
-print(f"Last Inserted ID: {cur.lastrowid}")
+#conn.commit() 
+#print(f"Last Inserted ID: {cur.lastrowid}")
     
 conn.close()
