@@ -16,21 +16,21 @@ except mariadb.Error as e:
 #Get Cursor
 cur = conn.cursor() 
 
-#Retrieving Information 
+#User Input 
 print("Wählen Sie aus deutsch, englisch, französisch, spanisch oder griechisch")
 language_wish = input()
-cur.execute("SELECT Sprache, Titel FROM Buch WHERE Sprache=?", (language_wish,)) 
 
-for Titel, Sprache in cur: 
-    print(f"Titel: {Titel}, Sprache: {Sprache}")
-    
-#insert information 
-#try: 
-#    cur.execute("INSERT INTO employees (first_name,last_name) VALUES (?, ?)", ("Maria","DB")) 
-#except mariadb.Error as e: 
-#    print(f"Error: {e}")
+#Get Data
+def get_data(language_wish):
+    try:
+        #import pdb;pdb.set_trace()
+        statement = f"select Titel,Sprache from BuchDB.Buch where Sprache like \'{language_wish}\';"
+        #data = (language_wish,)
+        cur.execute(statement)
+        for(Titel, Sprache) in cur:
+            print(f"Titel: {Titel}, Sprache: {Sprache}")
+    except mariadb.Error as ex:
+        print(f"Keine Buch in der Sprache verfügbar: {ex}")
 
-#conn.commit() 
-#print(f"Last Inserted ID: {cur.lastrowid}")
-
+get_data(language_wish)
 conn.close()
