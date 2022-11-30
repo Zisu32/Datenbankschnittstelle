@@ -1,6 +1,6 @@
 #!/usr/bin/python 
-import mariadb
-#import mysql.connector as mariadb 
+#import mariadb
+import mysql.connector as mariadb 
 import sys
 
 #Connect to MariaDB Platform
@@ -19,8 +19,9 @@ cur = conn.cursor()
 
 #Retrieving Information 
 print("Wählen Sie aus deutsch, englisch, französisch, spanisch oder griechisch")
-language_wish = int(input())
+language_wish = input()
 cur.execute("SELECT Titel, Sprache FROM Buch WHERE Sprache=?", (language_wish,)) 
+
 
 for Titel, Sprache in cur: 
     print(f"Titel: {Titel}, Sprache: {Sprache}")
