@@ -4,6 +4,7 @@
 ### 1. Python User erstellen
 create user PythonUser@localhost;
 grant all privileges on BuchDB.Buch to PythonUser@localhost;
+ACHTUNG: zusätzlich muss grant select on BuchDB.Buch to PythonUser@localhost gegeben werden
 
 ### 2. Datenverbindung aufbauen
 import mysql.connector as mariadb
